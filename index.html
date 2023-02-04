@@ -10,16 +10,24 @@
         <title>Weather City Forecast</title>
     </head>
     <body>
-        <header id = "dashboard-title" class = "p-3 mb-2 bg-info fs-2 fw-bold fst-italic text-secondary-emphasis text-center">Weather Dashboard</header>
+        <header id = "dashboard-title" class = "p-3 mb-2 bg-info fs-1 fw-bold fst-italic text-secondary-emphasis text-center">Weather Dashboard</header>
 
-        <h1>Search for a City</h1>
+        <h1 class = "fs-2 text-info">Search for a City:</h1>
         <div class="search-city input-group mb-3">
             <input type="text" class="form-control"  placeholder="Insert city's name here" aria-label="city name" aria-describedby="button-addon2">
             <button class="btn btn-outline-secondary" type="button" id="searchBTN">Search</button>
         </div>
 
-        <!-- The city current weather today -->
+        <div class = "saved-cities"></div>
 
+        <!-- The city current weather today -->
+        <div class = "selected-city">
+            <div id = "city-name"></div>
+            <div id = "today-date"></div>
+            <div id = "temp">Temp: </div>
+            <div id = "wind">Wind: </div>
+            <div id = "humidity">Humidity: </div>
+        </div>
 
         <!-- City weather in 5 days -->
         <div class = "future-forecast">
