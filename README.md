@@ -9,11 +9,11 @@ It's a weather dashboard that will run in the browser and feature dynamically up
 ## Acknowledge
 Without these tutorials, my website would not function.
 
-* []()
-* []()
-* []()
-* []()
-* []()
+* [Bootstrap Background color](https://getbootstrap.com/docs/5.3/utilities/background/#background-color)
+* [Bootstrap Text color](https://getbootstrap.com/docs/5.3/utilities/colors/)
+* [Bootstrap Position Center](https://getbootstrap.com/docs/5.3/utilities/position/#center-elements)
+* [Bootstrap Text Alignment](https://getbootstrap.com/docs/5.3/components/card/#text-alignment)
+* [Bootstrap Font size](https://getbootstrap.com/docs/5.3/utilities/text/#font-size)
 * []()
 * []()
 * []()
