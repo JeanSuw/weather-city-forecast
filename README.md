@@ -15,7 +15,7 @@ Without these tutorials, my website would not function.
 * [Bootstrap Text Alignment](https://getbootstrap.com/docs/5.3/components/card/#text-alignment)
 * [Bootstrap Font size](https://getbootstrap.com/docs/5.3/utilities/text/#font-size)
 * [Bootstrap Input Group](https://getbootstrap.com/docs/5.3/forms/input-group/#basic-example)
-* []()
+* [Bootstrap Columns](https://getbootstrap.com/docs/5.3/layout/columns/)
 * []()
 * []()
 * []()
