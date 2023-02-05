@@ -12,21 +12,28 @@
     <body>
         <header id = "dashboard-title" class = "p-3 mb-2 bg-info fs-1 fw-bold fst-italic text-secondary-emphasis text-center">Weather Dashboard</header>
 
-        <h1 class = "fs-2 text-info">Search for a City:</h1>
-        <div class="search-city input-group mb-3">
-            <input type="text" class="form-control"  placeholder="Insert city's name here" aria-label="city name" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="searchBTN">Search</button>
-        </div>
+        <section class="container my-5">
+            <div class ="row">
+                <div class="col-18 col-md-15 col-lg-7">
+                    <h1 class = "fs-2 text-info">Search for a City:</h1>
+                    <div class="search-city input-group mb-3">
+                        <input type="text" class="form-control"  placeholder="Insert city's name here" aria-label="city name" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" id="searchBTN">Search</button>
+                    </div>
+                </div>
+                <!-- The city current weather today -->
+                <div class="col-12 col-md-8 col-lg-5">
+                    <div class = "selected-city">
+                        <div id = "city-name today-date">Insert City name (MM/DD/YY)</div>
+                        <div id = "today-temp">Temp: </div>
+                        <div id = "today-wind">Wind: </div>
+                        <div id = "today-humidity">Humidity: </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <div class = "saved-cities"></div>
-
-        <!-- The city current weather today -->
-        <div class = "selected-city">
-            <div id = "city-name today-date">Insert City name (MM/DD/YY)</div>
-            <div id = "today-temp">Temp: </div>
-            <div id = "today-wind">Wind: </div>
-            <div id = "today-humidity">Humidity: </div>
-        </div>
 
         <!-- City weather in 5 days -->
         <div class = "future-forecast">

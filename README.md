@@ -17,9 +17,10 @@ Without these tutorials, my website would not function.
 * [Bootstrap Input Group](https://getbootstrap.com/docs/5.3/forms/input-group/#basic-example)
 * [Bootstrap Columns](https://getbootstrap.com/docs/5.3/layout/columns/)
 * [Weather API Key instruction](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys)
+* [API Calling](https://openweathermap.org/current#name)
 * []()
 * []()
 * []()
 * []()
 * []()
-* []()
+* 13-Ins_Bootstrap-Layout
