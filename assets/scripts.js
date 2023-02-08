@@ -3,7 +3,7 @@ var searchBTN = document.getElementById("search-BTN");
 
 var userInput = document.getElementById("user-input").value; // user's input of city name
 
-var cityName = document.getElementById("city-name");
+var cityNameDiv = document.getElementById("city-name");
 var todayDate = document.getElementById("today-date");
 var todayTemp = document.getElementById("today-temp");
 var todayWind = document.getElementById("today-wind");
@@ -24,19 +24,19 @@ function getWeatherFrom(cityName){
     })
     .then(function (data) {
         //console.log ("Check the data: " + data.main.temp);
-        var city = document.createElement('city-name');
-        var today = document.createElement('today-date');
+        var cityVal = document.createElement('city-name');
+        var today = new Date(data.dt*1000);
         var Fahrenheit = document.createElement('today-temp');
         var windSpeed = document.createElement('today-wind');
-        var humid = document.createElement('today-humidity')
+        var humid = document.createElement('today-humidity');
         
-        
+        cityVal.textContent = data.name + " (" + today.toDateString() + ")";
         Fahrenheit.textContent = convertToF(data.main.temp) + " ℉";
         windSpeed.textContent = data.wind.speed + " MPH";
         humid.textContent = data.main.humidity + "%";
         
 
-        
+        cityNameDiv.appendChild(cityVal);
         todayTemp.appendChild(Fahrenheit);
         todayWind.appendChild(windSpeed);
         todayHumidity.appendChild(humid);
@@ -49,6 +49,8 @@ function convertToF(kelvin){
     total = ((kelvin-273.15)*1.8)+32;
     return total.toFixed(2);
 }
+
+
 
 // get current city day
 
