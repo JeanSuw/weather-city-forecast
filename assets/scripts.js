@@ -3,6 +3,12 @@ var searchBTN = document.getElementById("search-BTN");
 
 var userInput = document.getElementById("user-input").value; // user's input of city name
 
+var cityName = document.getElementById("city-name");
+var todayDate = document.getElementById("today-date");
+var todayTemp = document.getElementById("today-temp");
+var todayWind = document.getElementById("today-wind");
+var todayHumidity = document.getElementById("today-humidity");
+
 
 // Way to call city (by itself) by using name
 // https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
@@ -17,12 +23,32 @@ function getWeatherFrom(cityName){
         return response.json();
     })
     .then(function (data) {
-        console.log ("Check the data: " + data);
+        //console.log ("Check the data: " + data.main.temp);
+        var city = document.createElement('city-name');
+        var today = document.createElement('today-date');
+        var Fahrenheit = document.createElement('today-temp');
+        var windSpeed = document.createElement('today-wind');
+        var humid = document.createElement('today-humidity')
+        
+        
+        Fahrenheit.textContent = convertToF(data.main.temp) + " ℉";
+        windSpeed.textContent = data.wind.speed + " MPH";
+        humid.textContent = data.main.humidity + "%";
+        
+
+        
+        todayTemp.appendChild(Fahrenheit);
+        todayWind.appendChild(windSpeed);
+        todayHumidity.appendChild(humid);
 
     });
     console.log(weatherURL);
 }
-
+// ℉=((K-273.15)*1.8)+32
+function convertToF(kelvin){
+    total = ((kelvin-273.15)*1.8)+32;
+    return total.toFixed(2);
+}
 
 // get current city day
 
