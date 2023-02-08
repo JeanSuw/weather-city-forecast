@@ -46,7 +46,7 @@ function getWeatherFrom(cityName){
         // get 5 more days 
 
     });
-    console.log(weatherURL);
+    //console.log(weatherURL);
 }
 
 // Helper method for temperature
@@ -56,18 +56,11 @@ function convertToF(kelvin){
 }
 
 
-
-
-
-
-
 // click to search something
 searchBTN.addEventListener('click', function (event) {
-    event.preventDefault();
+    //event.preventDefault();
     getWeatherFrom(userInput.value); // Get input by calling a value
-}
+});
 
-);
-
-// Testing 
+// Testing methods
 //getWeatherFrom("London");
