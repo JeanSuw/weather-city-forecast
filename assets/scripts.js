@@ -6,7 +6,7 @@ var searchBTN = document.getElementById("search-BTN");
 // Take out the bracket!
 
 function getWeatherFrom(cityName){
-    var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q="+cityName +"&appid={" + APIKey + "}";
+    var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q="+cityName +"&appid=" + APIKey;
 
     fetch(weatherURL)
     .then(function (response) {
