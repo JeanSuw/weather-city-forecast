@@ -9,14 +9,49 @@ var todayTemp = document.getElementById("today-temp");
 var todayWind = document.getElementById("today-wind");
 var todayHumidity = document.getElementById("today-humidity");
 
+//var day1Div = document.getElementById("date-1");
+var day1Div = $('#date-1');
+//var day2Div = document.getElementById("date-2");
+var day2Div = $('#date-2');
+//var day3Div = document.getElementById("date-3");
+var day3Div = $('#date-3');
+//var day4Div = document.getElementById("date-4");
+var day4Div = $('#date-4');
+//var day5Div = document.getElementById("date-5");
+var day5Div = $('#date-5');
 
-// Way to call city (by itself) by using name
-// https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
-// For example: https://api.openweathermap.org/data/2.5/weather?q=London&appid={API key}
-// Take out the bracket!
+function switchDiv(divVal){
+    switch (divVal){
+        case 7: // 8th hours
+            return day1Div;
+        case 15: // 16th hours
+            return day2Div;
+        case 23: // 24th hours
+            return day3Div;
+        case 31: // 32th hours
+            return day4Div;
+        case 39: // 40th hours
+            return day5Div;
+        case -1:
+            break;
+    }
+}
+
+function forecast(dataVal){
+    var dateText, currentDate, currentDiv;
+    for (var h = 7; h < dataVal.list.length; h += 8){
+        dateText = $('<p>');
+        currentDate = new Date (dataVal.list[h].dt * 1000);
+        console.log("h = " + h);
+        dateText.text(currentDate.toDateString());
+        currentDiv = switchDiv(h);
+        currentDiv.append(dateText);
+    }
+}
+
 
 function getWeatherFrom(cityName){
-    console.log(weatherURL);
+    
     var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q="+cityName +"&appid=" + APIKey;
 
     fetch(weatherURL)
@@ -24,11 +59,10 @@ function getWeatherFrom(cityName){
         return response.json();
     })
     .then(function (data) {
-        //console.log ("Check the data: " + data.main.temp);
-        
         // get current city day
         var cityVal = document.createElement('city-name');
         var today = new Date(data.dt*1000);
+
         var Fahrenheit = document.createElement('today-temp');
         var windSpeed = document.createElement('today-wind');
         var humid = document.createElement('today-humidity');
@@ -42,12 +76,29 @@ function getWeatherFrom(cityName){
         todayTemp.appendChild(Fahrenheit);
         todayWind.appendChild(windSpeed);
         todayHumidity.appendChild(humid);
-
-        // get 5 more days 
-
     });
-    //console.log(weatherURL);
+
+    var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q="+ cityName +"&appid=" + APIKey;
+    fetch(forecastURL)
+    .then(function (forcastResponse) {
+        return forcastResponse.json();
+    })
+    .then(function (forecastData) {
+        //console.log(forecastData.list[0].dt);
+        //console.log(forecastData.list[8].dt);
+        //console.log(forecastData.list[16].dt);
+        //console.log(forecastData.list[24].dt);
+        console.log(forecastData.list);
+        console.log(forecastData.list.length);
+        forecast(forecastData);
+    });
 }
+
+function clearOutput(){
+    // start over the lists
+}
+
+
 
 // Helper method for temperature
 function convertToF(kelvin){
@@ -61,6 +112,5 @@ searchBTN.addEventListener('click', function (event) {
     //event.preventDefault();
     getWeatherFrom(userInput.value); // Get input by calling a value
 });
-
 // Testing methods
 //getWeatherFrom("London");
