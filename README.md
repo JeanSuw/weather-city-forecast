@@ -3,8 +3,14 @@
 ## Description
 It's a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS. It allows users to check the 5-days weather forecast depending on their city's name as inputs.
 
-## Useage
+## Links
+* [Weather city forecast repo](https://github.com/JeanSuw/weather-city-forecast)
+* [Weather city forecast website](https://jeansuw.github.io/weather-city-forecast/)
 
+## Useage
+You can type in any city name. It will show the current day and 5 days from now.
+
+![ScreenShot](./assets/Weather-City-Forecast.png)
 
 ## Acknowledge
 Without these tutorials, my website would not function.
