@@ -15,7 +15,6 @@ var day3Div = $('#date-3');
 var day4Div = $('#date-4');
 var day5Div = $('#date-5');
 
-
 function switchDiv(divVal){
     switch (divVal){
         case 7: // 8th hours
@@ -34,18 +33,26 @@ function switchDiv(divVal){
 }
 
 function forecast(dataVal){
-    var dateText, currentDate, currentDiv, dateList;
+    var dateText, currentDate, currentDiv, dateList, temperature,currentWind;
     for (var h = 7; h < dataVal.list.length; h += 8){
-        dateText = $('<p>');
-        // Render dates
-        currentDate = new Date (dataVal.list[h].dt * 1000);
-        console.log("h = " + h);
-        dateText.text(currentDate.toDateString());
-        currentDiv = switchDiv(h);
-        currentDiv.append(dateText);
-
         dateList = dataVal.list[h];
-
+        dateText = $('<p>');
+        
+        currentDate = new Date (dateList.dt * 1000);
+        
+        temperature = dateList.main.temp;
+        currentWind = dateList.wind.speed;
+        currentHumid = dateList.main.humidity;
+        
+        currentDiv = switchDiv(h);
+        
+        newBox = currentDate.toDateString() +
+            " Temp: "+  convertToF(temperature) + " ℉" +
+            "  Wind: " + currentWind + "MPH" + 
+            " Humidity: " + currentHumid + "%";
+        
+        dateText.text(newBox);
+        currentDiv.append(dateText);
     }
 }
 
@@ -79,13 +86,12 @@ function getWeatherFrom(cityName){
     });
 
     var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q="+ cityName +"&appid=" + APIKey;
+
     fetch(forecastURL)
     .then(function (forcastResponse) {
         return forcastResponse.json();
     })
     .then(function (forecastData) {
-        console.log(forecastData.list);
-        console.log(forecastData.list.length);
         forecast(forecastData);
     });
 }
@@ -102,11 +108,8 @@ function convertToF(kelvin){
     return total.toFixed(2);
 }
 
-
 // click to search something
 searchBTN.addEventListener('click', function (event) {
     //event.preventDefault();
     getWeatherFrom(userInput.value); // Get input by calling a value
 });
-// Testing methods
-//getWeatherFrom("London");
