@@ -9,16 +9,12 @@ var todayTemp = document.getElementById("today-temp");
 var todayWind = document.getElementById("today-wind");
 var todayHumidity = document.getElementById("today-humidity");
 
-//var day1Div = document.getElementById("date-1");
 var day1Div = $('#date-1');
-//var day2Div = document.getElementById("date-2");
 var day2Div = $('#date-2');
-//var day3Div = document.getElementById("date-3");
 var day3Div = $('#date-3');
-//var day4Div = document.getElementById("date-4");
 var day4Div = $('#date-4');
-//var day5Div = document.getElementById("date-5");
 var day5Div = $('#date-5');
+
 
 function switchDiv(divVal){
     switch (divVal){
@@ -38,18 +34,22 @@ function switchDiv(divVal){
 }
 
 function forecast(dataVal){
-    var dateText, currentDate, currentDiv;
+    var dateText, currentDate, currentDiv, dateList;
     for (var h = 7; h < dataVal.list.length; h += 8){
         dateText = $('<p>');
+        // Render dates
         currentDate = new Date (dataVal.list[h].dt * 1000);
         console.log("h = " + h);
         dateText.text(currentDate.toDateString());
         currentDiv = switchDiv(h);
         currentDiv.append(dateText);
+
+        dateList = dataVal.list[h];
+
     }
 }
 
-
+// Get current weather and the forecast
 function getWeatherFrom(cityName){
     
     var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q="+cityName +"&appid=" + APIKey;
@@ -84,10 +84,6 @@ function getWeatherFrom(cityName){
         return forcastResponse.json();
     })
     .then(function (forecastData) {
-        //console.log(forecastData.list[0].dt);
-        //console.log(forecastData.list[8].dt);
-        //console.log(forecastData.list[16].dt);
-        //console.log(forecastData.list[24].dt);
         console.log(forecastData.list);
         console.log(forecastData.list.length);
         forecast(forecastData);
