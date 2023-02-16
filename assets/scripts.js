@@ -3,11 +3,6 @@ var searchBTN = document.getElementById("search-BTN");
 
 var userInput = document.getElementById("user-input"); // user's input of city name
 
-var todayDate = document.getElementById("today-date");
-var todayTemp = document.getElementById("today-temp");
-var todayWind = document.getElementById("today-wind");
-var todayHumidity = document.getElementById("today-humidity");
-
 function switchDiv(divVal){
     switch (divVal){
         case 7: // 8th hours
@@ -56,7 +51,6 @@ function getWeatherFrom(cityName){
     })
     .then(function (data) {
         // get current city day
-        var cityVal = document.createElement('city-name');
         var today = new Date(data.dt*1000);
         temperature = data.main.temp;
         windVal = data.wind.speed;
@@ -81,6 +75,12 @@ function getWeatherFrom(cityName){
 
 function clearOutput(){
     // start over the lists
+    $('#city-name').empty();
+    $('#date-1').empty();
+    $('#date-2').empty();
+    $('#date-3').empty();
+    $('#date-4').empty();
+    $('#date-5').empty();
 }
 
 
