@@ -9,24 +9,18 @@ var todayTemp = document.getElementById("today-temp");
 var todayWind = document.getElementById("today-wind");
 var todayHumidity = document.getElementById("today-humidity");
 
-var day1Div = $('#date-1');
-var day2Div = $('#date-2');
-var day3Div = $('#date-3');
-var day4Div = $('#date-4');
-var day5Div = $('#date-5');
-
 function switchDiv(divVal){
     switch (divVal){
         case 7: // 8th hours
-            return day1Div;
+            return $('#date-1');
         case 15: // 16th hours
-            return day2Div;
+            return $('#date-2');
         case 23: // 24th hours
-            return day3Div;
+            return $('#date-3');
         case 31: // 32th hours
-            return day4Div;
+            return $('#date-4');
         case 39: // 40th hours
-            return day5Div;
+            return $('#date-5');
         case -1:
             break;
     }
@@ -46,13 +40,10 @@ function forecast(dataVal){
         
         currentDiv = switchDiv(h);
         
-        newBox = currentDate.toDateString() +
-            " Temp: "+  convertToF(temperature) + " ℉" +
-            "  Wind: " + currentWind + "MPH" + 
-            " Humidity: " + currentHumid + "%";
-        
-        dateText.text(newBox);
-        currentDiv.append(dateText);
+        currentDiv.append(
+            "<p>" +currentDate.toDateString() +"</p><p>"+"Temp: "+  convertToF(temperature) + " ℉</p>" 
+            + "<p>Wind: " + currentWind + "MPH</p><p>Humidity: " + currentHumid + "%</p>"
+        );
     }
 }
 
