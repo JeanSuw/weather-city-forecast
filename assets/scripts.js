@@ -3,7 +3,6 @@ var searchBTN = document.getElementById("search-BTN");
 
 var userInput = document.getElementById("user-input"); // user's input of city name
 
-var cityNameDiv = document.getElementById("city-name");
 var todayDate = document.getElementById("today-date");
 var todayTemp = document.getElementById("today-temp");
 var todayWind = document.getElementById("today-wind");
@@ -27,10 +26,9 @@ function switchDiv(divVal){
 }
 
 function forecast(dataVal){
-    var dateText, currentDate, currentDiv, dateList, temperature,currentWind;
+    var currentDate, currentDiv, dateList, temperature,currentWind;
     for (var h = 7; h < dataVal.list.length; h += 8){
         dateList = dataVal.list[h];
-        dateText = $('<p>');
         
         currentDate = new Date (dateList.dt * 1000);
         
@@ -41,8 +39,8 @@ function forecast(dataVal){
         currentDiv = switchDiv(h);
         
         currentDiv.append(
-            "<p>" +currentDate.toDateString() +"</p><p>"+"Temp: "+  convertToF(temperature) + " ℉</p>" 
-            + "<p>Wind: " + currentWind + "MPH</p><p>Humidity: " + currentHumid + "%</p>"
+            "<p>" +currentDate.toDateString() +"<br>"+"Temp: "+  convertToF(temperature) + " ℉" 
+            + "<br>Wind: " + currentWind + "MPH<br>Humidity: " + currentHumid + "%</p>"
         );
     }
 }
@@ -60,20 +58,14 @@ function getWeatherFrom(cityName){
         // get current city day
         var cityVal = document.createElement('city-name');
         var today = new Date(data.dt*1000);
+        temperature = data.main.temp;
+        windVal = data.wind.speed;
+        humidVal = data.main.humidity;
 
-        var Fahrenheit = document.createElement('today-temp');
-        var windSpeed = document.createElement('today-wind');
-        var humid = document.createElement('today-humidity');
-        
-        cityVal.textContent = data.name + " (" + today.toDateString() + ")";
-        Fahrenheit.textContent = convertToF(data.main.temp) + " ℉";
-        windSpeed.textContent = data.wind.speed + " MPH";
-        humid.textContent = data.main.humidity + "%";
-        
-        cityNameDiv.appendChild(cityVal);
-        todayTemp.appendChild(Fahrenheit);
-        todayWind.appendChild(windSpeed);
-        todayHumidity.appendChild(humid);
+        $('#city-name').append(
+            "<p>" + data.name + " (" +today.toDateString() +")<br>"+"Temp: "+  convertToF(temperature) + " ℉" 
+            + "<br>Wind: " + windVal + "MPH<br>Humidity: " + humidVal + "%</p>"
+        );
     });
 
     var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q="+ cityName +"&appid=" + APIKey;
