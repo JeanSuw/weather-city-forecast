@@ -1,7 +1,10 @@
 var APIKey = "35860f199216a9759f17e01b3000e2e2";
 var searchBTN = document.getElementById("search-BTN");
+var historyDiv = document.querySelector("#weatherHistoryBTN");
 
 var userInput = document.getElementById("user-input"); // user's input of city name
+var weatherList = [];
+var forecastList = [];
 
 function switchDiv(divVal){
     switch (divVal){
@@ -44,7 +47,9 @@ function forecast(dataVal){
 function getWeatherFrom(cityName){
     
     var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q="+cityName +"&appid=" + APIKey;
+    weatherList.push(cityName);
 
+    localStorage.setItem("weatherList", JSON.stringify(weatherList));
     fetch(weatherURL)
     .then(function (response) {
         return response.json();
@@ -83,16 +88,47 @@ function clearOutput(){
     $('#date-5').empty();
 }
 
-
-
 // Helper method for temperature
 function convertToF(kelvin){
     total = ((kelvin-273.15)*1.8)+32;
     return total.toFixed(2);
 }
 
+function storeWeather() {
+    localStorage.setItem("weatherList", JSON.stringify(weatherList));
+}
+
+function init(){
+    var history = JSON.parse(localStorage.getItem("weatherList"));
+
+    if (history !== null){
+        weatherList = history;
+    }
+    for (var i = 0; i < weatherList.length; i++){
+        getWeatherFrom(weatherList[i]);
+    }
+    
+}
+
+
 // click to search something
 searchBTN.addEventListener('click', function (event) {
     //event.preventDefault();
     getWeatherFrom(userInput.value); // Get input by calling a value
+    // Store input values to weather list (keep history)
+    storeWeather();
 });
+// $('#weatherHistoryBTN')
+// historyDiv
+historyDiv.addEventListener("click", function(event){
+    var text = event.target;
+
+    if (text.matches("button") === true){
+        storeWeather();
+        for (var i = 0; i < weatherList.length; i++){
+            getWeatherFrom(weatherList[i]);
+        }
+    }
+});
+
+init();
