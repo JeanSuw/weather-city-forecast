@@ -26,6 +26,8 @@ function switchDiv(divVal){
 function forecast(dataVal){
     var currentDate, currentDiv, dateList, temperature,currentWind;
     for (var h = 7; h < dataVal.list.length; h += 8){
+        forecastList.push(dataVal);
+        localStorage.setItem("forecastList", JSON.stringify(forecastList));
         dateList = dataVal.list[h];
         
         currentDate = new Date (dateList.dt * 1000);
@@ -57,9 +59,9 @@ function getWeatherFrom(cityName){
     .then(function (data) {
         // get current city day
         var today = new Date(data.dt*1000);
-        temperature = data.main.temp;
-        windVal = data.wind.speed;
-        humidVal = data.main.humidity;
+        var temperature = data.main.temp;
+        var windVal = data.wind.speed;
+        var humidVal = data.main.humidity;
 
         $('#city-name').append(
             "<p>" + data.name + " (" +today.toDateString() +")<br>"+"Temp: "+  convertToF(temperature) + " ℉" 
@@ -76,16 +78,6 @@ function getWeatherFrom(cityName){
     .then(function (forecastData) {
         forecast(forecastData);
     });
-}
-
-function clearOutput(){
-    // start over the lists
-    $('#city-name').empty();
-    $('#date-1').empty();
-    $('#date-2').empty();
-    $('#date-3').empty();
-    $('#date-4').empty();
-    $('#date-5').empty();
 }
 
 // Helper method for temperature
@@ -110,6 +102,40 @@ function init(){
     
 }
 
+function renderWeather(){
+    $('#city-name').empty();
+    $('#date-1').empty();
+    $('#date-2').empty();
+    $('#date-3').empty();
+    $('#date-4').empty();
+    $('#date-5').empty();
+    
+    for (var i = 0; i < weatherList.length; i++){
+        var currentWeather = weatherList[i];
+        var today = new Date(currentWeather.dt*1000);
+        var temperature = currentWeather.main.temp;
+        var windVal = currentWeather.wind.speed;
+        var humidVal = currentWeather.main.humidity;
+        $('#city-name').append(
+            "<p>" + currentWeather.name + " (" +today.toDateString() +")<br>"+"Temp: "+  convertToF(temperature) + " ℉" 
+            + "<br>Wind: " + windVal + "MPH<br>Humidity: " + humidVal + "%</p>"
+        );
+        for (var j = 0; j < forecastList.length; j++){
+            currentWeather = forecastList[i];
+            today = new Date(currentWeather.dt*1000);
+            temperature = currentWeather.main.temp;
+            windVal = currentWeather.wind.speed;
+            humidVal = currentWeather.main.humidity;
+            var currentDiv = switchDiv(h);
+        
+            currentDiv.append(
+                "<p>" +currentDate.toDateString() +"<br>"+"Temp: "+  convertToF(temperature) + " ℉" 
+                + "<br>Wind: " + currentWind + "MPH<br>Humidity: " + currentHumid + "%</p>"
+            );
+
+        }
+    }
+}
 
 // click to search something
 searchBTN.addEventListener('click', function (event) {
